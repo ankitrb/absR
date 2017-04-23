@@ -15,14 +15,14 @@ ui = fluidPage(
                  #Only show this panel if input type is "Hashtag & Location"    
                  conditionalPanel(
                    condition = "input.typeInput == 'hashtag'",
-                   textInput("hashtagInput", "Enter search string",""),
-                   textInput("zipInput", "Enter ZIP Code (from 00210 to 99950)","06105"),
-                   textInput("radiusInput", "Enter radius (miles)","100")),
+                   textInput("hashtagInput", "Enter search string","", placeholder = "search string"),
+                   textInput("zipInput", "Enter ZIP Code (from 00210 to 99950)", placeholder = "06105"),
+                   textInput("radiusInput", "Enter radius (miles)", placeholder = "100")),
                  
                  #Only show this panel if Input type is "Twitter Username"
                  conditionalPanel(
                    condition = "input.typeInput == 'username'",
-                   textInput("usernameInput", "Username", "AnkitRB")),
+                   textInput("usernameInput", "Username", placeholder = "AnkitRB")),
                  actionButton("goButton", "Search", icon("twitter"),
                               style="color: #fff; background-color: #337ab7") ,width = 2),
     
