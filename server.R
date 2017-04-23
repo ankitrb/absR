@@ -1,4 +1,3 @@
-
 server = function(input, output)
 {
   
@@ -11,7 +10,7 @@ server = function(input, output)
       geocode.string = getLatLong.zip(enter.zipcode = input$zipInput,radius.mi = input$radiusInput)
       
       tweetOutput = searchThis(search_string = input$hashtagInput,
-                                 number.of.tweets = input$numberInput, geocode_string = geocode.string)
+                               number.of.tweets = input$numberInput, geocode_string = geocode.string)
       
     } 
     
@@ -26,30 +25,30 @@ server = function(input, output)
     df.tweets = cleanTweets(tweetOutput)
     #Get sentiments
     nrc.lexicons = get_nrc_sentiment(df.tweets$text_clean)
-    })
+  })
   
   #Render TM plots
   output$plot1 = renderPlot({
     
-      # Barplot for emotions
-      barplot(
-        sort(colSums(prop.table(data1()[, 1:8]))), 
-        horiz = TRUE, 
-        cex.names = 0.8, 
-        las = 1, 
-        main = "Emotions in tweets", xlab="Percentage", xlim = c(0,.4))}, 
-          width = 700, height = 500)
+    # Barplot for emotions
+    barplot(
+      sort(colSums(prop.table(data1()[, 1:8]))), 
+      horiz = TRUE, 
+      cex.names = 0.8, 
+      las = 1, 
+      main = "Emotions in tweets", xlab="Percentage", xlim = c(0,.4))}, 
+    width = 700, height = 500)
   
   output$plot2 = renderPlot({
     
-      # Barplot for positive vs negative
-      barplot(
-        sort(colSums(prop.table(data1()[, 9:10]))), 
-        horiz = TRUE, 
-        cex.names = 0.75, 
-        las = 1, 
-        main = "Ratio of positive to negative tweets",xlab="Percentage", xlim = c(0,1))},
-          width = 700, height = 500)
+    # Barplot for positive vs negative
+    barplot(
+      sort(colSums(prop.table(data1()[, 9:10]))), 
+      horiz = TRUE, 
+      cex.names = 0.75, 
+      las = 1, 
+      main = "Polarity in tweets",xlab="Percentage", xlim = c(0,1))},
+    width = 700, height = 500)
   
   
   #Reactive input
@@ -61,7 +60,7 @@ server = function(input, output)
       #Generate geocode string
       geocode.string = getLatLong.zip(enter.zipcode = input$zipInput,radius.mi = input$radiusInput)
       tweetOutput = searchThis(search_string = input$hashtagInput,
-                                 number.of.tweets = input$numberInput, geocode_string = geocode.string)
+                               number.of.tweets = input$numberInput, geocode_string = geocode.string)
       
     } 
     
@@ -106,7 +105,7 @@ server = function(input, output)
       geocode.string = getLatLong.zip(enter.zipcode = input$zipInput,radius.mi = input$radiusInput)
       
       tweetOutput = searchThis(search_string = input$hashtagInput,
-                                 number.of.tweets = input$numberInput, geocode_string = geocode.string)
+                               number.of.tweets = input$numberInput, geocode_string = geocode.string)
       
     } 
     
@@ -124,13 +123,13 @@ server = function(input, output)
     
     
     df.tweets <- cleanTweets(tweetOutput)
-  
+    
     searchtweet.tdm.tm.stopword = tdm.tmStopWord(df.tweets)
     
     tweets.positive = generateWordCloud.positive.tmStopWords(searchtweet.tdm.tm.stopword)
     
   })
-
+  
   #Render Positive Wordcloud TM
   output$wordCloud1 = renderWordcloud2({wordcloud2(data = data3())})
   
@@ -143,7 +142,7 @@ server = function(input, output)
       geocode.string = getLatLong.zip(enter.zipcode = input$zipInput,radius.mi = input$radiusInput)
       
       tweetOutput = searchThis(search_string = input$hashtagInput,
-                                 number.of.tweets = input$numberInput, geocode_string = geocode.string)
+                               number.of.tweets = input$numberInput, geocode_string = geocode.string)
       
     } 
     
@@ -180,7 +179,7 @@ server = function(input, output)
       geocode.string = getLatLong.zip(enter.zipcode = input$zipInput,radius.mi = input$radiusInput)
       
       tweetOutput = searchThis(search_string = input$hashtagInput,
-                                 number.of.tweets = input$numberInput, geocode_string = geocode.string)
+                               number.of.tweets = input$numberInput, geocode_string = geocode.string)
       
     } 
     
@@ -219,7 +218,7 @@ server = function(input, output)
       geocode.string = getLatLong.zip(enter.zipcode = input$zipInput,radius.mi = input$radiusInput)
       
       tweetOutput = searchThis(search_string = input$hashtagInput,
-                                 number.of.tweets = input$numberInput, geocode_string = geocode.string)
+                               number.of.tweets = input$numberInput, geocode_string = geocode.string)
       
     } 
     
@@ -258,7 +257,7 @@ server = function(input, output)
       geocode.string = getLatLong.zip(enter.zipcode = input$zipInput,radius.mi = input$radiusInput)
       
       tweetOutput = searchThis(search_string = input$hashtagInput,
-                                 number.of.tweets = input$numberInput, geocode_string = geocode.string)
+                               number.of.tweets = input$numberInput, geocode_string = geocode.string)
       
     } 
     
@@ -277,17 +276,20 @@ server = function(input, output)
     # Remove all nongraphical characters
     text = str_replace_all(df.tweets$text,"[^[:graph:]]", " ")
     df.tweets = cbind(text, df.tweets[c(5,11,3,12,17)])
-  
+    
+    colnames(df.tweets) = c("Tweets", "Date", "Username", "Fav Count", "RT Count", "Location")
+    
+    tweetTable = df.tweets
+      
   })
   
   #Render tweets
   output$tweetTable = renderDataTable({data7()}, options = list(lengthMenu = c(10, 30, 50), pageLength = 5))
- 
+  
   #Render UConn image
   #output$uconn = renderPrint({
-   # src = "https://cdn3.vox-cdn.com/uploads/blog/sbnu_logo_minimal/270/large_theuconnblog.com.minimal.png"
-    #cat(sprintf('<img src=%s></img>', src))})
+   # src = "http://grfx.cstv.com/schools/bay/graphics/auto/logo-bubble-uconn.png"
+    #  cat(sprintf('<img src=%s></img>', src))})
+  
   
 }
-
-
