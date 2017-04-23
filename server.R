@@ -287,9 +287,9 @@ server = function(input, output)
   output$tweetTable = renderDataTable({data7()}, options = list(lengthMenu = c(10, 30, 50), pageLength = 5))
   
   #Render UConn image
-  #output$uconn = renderPrint({
-   # src = "http://grfx.cstv.com/schools/bay/graphics/auto/logo-bubble-uconn.png"
-    #  cat(sprintf('<img src=%s></img>', src))})
+  output$uconn = renderPrint({
+    src = "http://grfx.cstv.com/schools/bay/graphics/auto/logo-bubble-uconn.png"
+      cat(sprintf('<img src=%s></img>', src))})
   
   
 }
